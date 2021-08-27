@@ -38,19 +38,20 @@ class afk(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, message):
         try:
+            await self.update_list(message.guild.id)
             if message.author.id != self.client.user.id:
-                begin_time = datetime.datetime.now()
                 yuh = message.mentions
 
                 #Checks if message is a reply or contains a mention
                 #This runs instantly
                 if not yuh:
                     #Checks if author was AFK. If yes, takes off AFK
+                    await self.update_list(message.guild.id)
                     global namelist
                     for x in namelist:
                         if x == message.author.id:
                             if '.afk' in message.content:
-                                pass
+                                await self.update_list(message.guild.id)
                             else:
                                 await self.off_afk(message,message.author.id)
                                 await self.update_list(message.guild.id)
@@ -107,6 +108,7 @@ class afk(commands.Cog):
                         await message.reply(embed=embed)
 
                     #Checks if author was AFK. If yes, takes off AFK
+                    await self.update_list(message.guild.id)
                     for x in namelist:
                         if x == message.author.id:
                             if '.afk' in message.content:
