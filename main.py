@@ -33,7 +33,7 @@ async def on_command_error(ctx, error):
     if isinstance(error, commands.errors.CommandOnCooldown):
         if error.retry_after > 60:
             minutes = str(error.retry_after // 60)
-            await ctx.send(f"<a:hourglass:857868080435560520> **| Cooldown** {minutes} minutes")
+            await ctx.send(f"<a:hourglass:857868080435560520> **| Cooldown:** {minutes} minutes")
         else:
             await ctx.send(f"<a:hourglass:857868080435560520> **| Cooldown:** {round(error.retry_after)} seconds")
             return
