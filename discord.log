@@ -1,2 +1,2 @@
-2021-08-27 17:55:09,111:DEBUG:discord.client: on_ready has successfully been registered as an event
-2021-08-27 17:55:09,111:DEBUG:discord.client: on_command_error has successfully been registered as an event
+2021-08-27 18:00:00,062:DEBUG:discord.client: on_ready has successfully been registered as an event
+2021-08-27 18:00:00,063:DEBUG:discord.client: on_command_error has successfully been registered as an event
