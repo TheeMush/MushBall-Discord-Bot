@@ -84,7 +84,7 @@ class games(commands.Cog):
             choice = "heads"
         elif choice.lower() == 'tail':
             choice = 'tails'
-
+            
         if luck < 50:
             if choice.lower() == 'heads':
                 choices = ["Heads", "Tails","Tails"]
