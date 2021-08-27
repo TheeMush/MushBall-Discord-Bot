@@ -85,17 +85,6 @@ class games(commands.Cog):
         elif choice.lower() == 'tail':
             choice = 'tails'
 
-        if '** **' in ctx.message.content:
-            if choice.lower() == 'heads':
-                answer = 'Heads'
-            else:
-                answer = 'Tails'
-
-            embed=discord.Embed(title=f"{coin} The coin landed on {answer} {coin}", description=f"Congrats {ctx.author.mention}, you won **`${format (2*amount, ',d')}`**!", color=gold)
-            await ctx.send(embed=embed)
-            await update_bank(ctx,ctx.author.id,amount,0)
-            return
-
         if luck < 50:
             if choice.lower() == 'heads':
                 choices = ["Heads", "Tails","Tails"]
