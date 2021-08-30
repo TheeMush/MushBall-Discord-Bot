@@ -320,8 +320,8 @@ class roleshop(commands.Cog):
             await ctx.reply(f"**:money_with_wings: | You bought the {buyrole.mention} Role!**",allowed_mentions=am)
 
         else:
-            embed = discord.Embed(title="**Error: That role wasn't found**", description=f".buy `@ROLE`",color=0xFF0000)
-            embed.set_footer(text="Make sure to @ Mention the role or put the role name in wuoyes")
+            embed = discord.Embed(title="**Error: That role wasn't found**", description=f"<.buy <@ROLE>",color=0xFF0000)
+            embed.set_footer(text="Make sure to @ Mention the role or put the role name in quotes")
             embed.set_author(name=f"{ctx.message.guild.name}  ", icon_url=ctx.guild.icon_url)
             await ctx.send(embed=embed)
 
@@ -329,7 +329,8 @@ class roleshop(commands.Cog):
     @buy.error
     async def buy_error(self,ctx, error):
         if isinstance(error, commands.errors.RoleNotFound):
-            embed = discord.Embed(title="**Error: That role wasn't found**", description=f"Make sure you @ mention the role or spell it correctly (Case-Sensitive) when buying\n\n.buy `@ROLE`",color=0xFF0000)
+            embed = discord.Embed(title="**Error: That role wasn't found**", description=f'If you cant @ mention the role put it in quotes (Case-Sensitive)',color=0xFF0000)
+            embed.set_footer(text='.buy @ROLE  or  .buy "Role Name"')
             embed.set_author(name=f"{ctx.message.guild.name}  ", icon_url=ctx.guild.icon_url)
             await ctx.send(embed=embed)
         else:
