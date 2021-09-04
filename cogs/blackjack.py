@@ -262,7 +262,7 @@ class blackjack(commands.Cog):
                     embed = discord.Embed(title=f"{slots} MushBall's Casino {slots}",description="**:gem:__BlackJack__:gem:**", color=0xFFD700)
                     embed.add_field(name=f"{ctx.author.name}'s Cards': (**{player_score}**)",value=f"{await print_cards(player_cards, False)}",inline=False)
                     embed.add_field(name=f"Dealer's Cards': (**{dealer_score}**)",value=f"{await print_cards(dealer_cards, False)}",inline=False)
-                    embed.set_footer(text=f"You won ${format (3*amount, ',d')}")
+                    embed.set_footer(text=f"You won ${format (2*amount, ',d')}")
                     await update_bank(ctx,ctx.author.id,2*amount,0)
                     await ctx.send(embed=embed)
                     return   

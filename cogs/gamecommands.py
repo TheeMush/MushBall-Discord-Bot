@@ -4,6 +4,7 @@ from pymongo import MongoClient
 import traceback
 import random
 import math
+import datetime
 
 
 cluster = MongoClient("mongodb+srv://testbot:testbot123@testbot.78blp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
@@ -281,18 +282,21 @@ class gamecommands(commands.Cog):
         msg = await ctx.send("**Loading Leaderboard** <a:loading:869964972594192414>")
         lblist =[]
         lol = roles.find({'_id': ctx.guild.id},{'userAccounts'})
+        i=0
+        guild = ctx.guild
         for x in lol:
             for y in x['userAccounts']:
-                if y["wallet"] == '** **':
+
+                member = guild.get_member(int(y["id"]))
+
+                if member == None:
                     continue
-                try:
-                    member = await ctx.guild.fetch_member(int(y["id"]))
-                except discord.NotFound:
-                    continue
+
+
                 total = int(y["wallet"]) + int(y["bank"])
                 lbdict = {'name':member.name,'total':total}
                 lblist.append(lbdict)
-
+                i += 1
         lblist = (sorted(lblist, key = lambda i: i['total'],reverse=True))
         finallist = []
         for x in lblist:
@@ -301,7 +305,6 @@ class gamecommands(commands.Cog):
             finalstr = f"**{names} |** `${format (prices, ',d')}` \n"
             finallist.append(finalstr)
 
-        
         index = 1
         fklist = []
         for z in finallist:
@@ -317,6 +320,7 @@ class gamecommands(commands.Cog):
         am = discord.AllowedMentions(users=False)
         await msg.delete()
         await ctx.send(embed=em,allowed_mentions=am)
+
     #LEADERBOARD ERROR HANDLING
     @leaderboard.error
     async def leaderboard_error(self,ctx, error):

@@ -140,7 +140,6 @@ class afk(commands.Cog):
         
 
         async def update_list(self,guildid):
-            begin_time = datetime.datetime.now()
             global namelist
             namelist.clear()
             lol = roles.find({'_id': guildid},{'userAccounts'})
@@ -148,7 +147,6 @@ class afk(commands.Cog):
                 for y in x['userAccounts']:
                     name = list(y.items())[0][1]
                     namelist.append(name)
-            print(f"{datetime.datetime.now() - begin_time}")
 
         try:
             async def open_list(self,ctx,userid,message):
