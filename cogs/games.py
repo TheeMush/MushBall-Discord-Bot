@@ -85,7 +85,7 @@ class games(commands.Cog):
         elif choice.lower() == 'tail':
             choice = 'tails'
             
-        if luck < 50:
+        if luck < 80:
             if choice.lower() == 'heads':
                 choices = ["Heads", "Tails","Tails"]
                 rancoin = random.choice(choices)
@@ -187,7 +187,7 @@ class games(commands.Cog):
 
     #Highlow Command
     @commands.command(aliases = ["hl"])
-    @commands.cooldown(1, 10, commands.BucketType.member)
+    #@commands.cooldown(1, 10, commands.BucketType.member)
     async def highlow(self,ctx,amount = None,guess = None,num = None):
         embed = discord.Embed(description="• **.highlow** `<bet amount>` `<high/low>` `<number>`\n• Aliases = `.hl`\n\n**Low** = **1-16**\n**High** = **17-32**\n\n", color=red)
         embed.set_author(name = "HighLow Usage:",icon_url=ctx.author.avatar_url)
@@ -202,8 +202,6 @@ class games(commands.Cog):
             self.highlow.reset_cooldown(ctx)
             return
 
-        await ctx.reply("Highlow is broken play something else ._.")
-        return
         rannum = random.randrange(1,32)
         bal = await update_bank(ctx,ctx.author.id,0,0)
         luck = await update_luck(ctx,ctx.author.id,0)
@@ -266,11 +264,11 @@ class games(commands.Cog):
             embed.add_field(name=f"You guessed correctly! You win :dollar: `${format (2*amount, ',d')}` :dollar:",value="** **",inline=False)
             await update_bank(ctx,ctx.author.id,2*amount,0)
             await update_luck(ctx,ctx.author.id,-10)
-        if guess.lower() == 'low' and rannum<16:
+        if guess.lower() == 'low' and rannum<=16:
             embed.add_field(name=f"You guessed correctly! You win :dollar: `${format (2*amount, ',d')}` :dollar:",value="** **",inline=False)
             await update_bank(ctx,ctx.author.id,2*amount,0)
             await update_luck(ctx,ctx.author.id,-10)
-        if guess.lower() == 'high' and rannum<16:
+        if guess.lower() == 'high' and rannum<=16:
             embed.add_field(name=f"You guessed wrong! Sucks to suck",value="** **",inline=False)
             await update_luck(ctx,ctx.author.id,5)
         if guess.lower() == 'low' and rannum>16:
