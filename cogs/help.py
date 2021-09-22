@@ -8,27 +8,34 @@ class Help(commands.Cog):
 
     def __init__(self, client):
         self.client = client
-
-    @commands.command()
-    async def lose(self,ctx):
-        await ctx.send("hi")
     
-
     @commands.command()
     async def help(self,ctx):
         #Help Pages
-        page1 = discord.Embed(title="Commands List", description="Use the buttons below to navigate between help pages.", color=0x01a500)
+        page1 = discord.Embed(title="Help List", description="Use the buttons below to navigate between help pages.", color=0x01a500)
         page1.set_author(name="MushBall")
         page1.set_thumbnail(url="https://cdn.frankerfacez.com/emoticon/388352/4")
         page1.add_field(name="**.casinohelp**",value="Gamble a little bit, its fun",inline=False)
         page1.add_field(name="**.customhelp**", value="If you wanna see custom commands",inline=False)
+        page1.add_field(name="**.funhelp**", value="If you wanna see all the random commands I have",inline=False)
+        page1.set_footer(text="@Mush if you wanna suggest something")
+
+        await ctx.send(embed=page1)
+
+    @commands.command()
+    async def funhelp(self,ctx):
+        #Help Pages
+        page1 = discord.Embed(title="Fun Commands List", description="Use the buttons below to navigate between help pages.", color=0x01a500)
+        page1.set_author(name="MushBall")
+        page1.set_thumbnail(url="https://cdn.frankerfacez.com/emoticon/388352/4")
+        page1.set_footer(text="@Mush if you want your own personal command but no guarantees i'll make it")
         page1.add_field(name="**.mushball ''insert question here''** ",value="I answer yes or no questions",inline=False)
         page1.add_field(name="**.kith `<@USER>`**",value="Give someone a kith",inline=False)
         page1.add_field(name="**.slap `<@USER>`**",value="Slap someone, they probably deserve it",inline=False)
         page1.add_field(name="**.pat `<@USER>`**",value="Everyone deserves some headpats",inline=False)
-        page1.set_footer(text="@Mush if you wanna suggest something")
+        page1.set_footer(text= "@Mush if you want your own personal command but no guarantees i'll make it")
         
-        page2 = discord.Embed(title="Commands List", description="Page 2", color=0x01a500)
+        page2 = discord.Embed(title="Fun Commands List", description="Page 2", color=0x01a500)
         page2.set_author(name="MushBall")
         page2.set_thumbnail(url="https://cdn.frankerfacez.com/emoticon/388352/4")
         page2.add_field(name="**.glock `<@USER>`**",value="Some people just need to get glocked",inline=False)
@@ -39,18 +46,30 @@ class Help(commands.Cog):
         page2.add_field(name="**.mushmatch `<@USER>`**",value="Based off a very advanced algorithm and not a random number, I'll tell you the compatibility % of you and another person (I can rig this for a price)",inline=False)
         page2.set_footer(text="@Mush if you wanna suggest something")
 
-        page3 = discord.Embed(title="Commands List", description="Last Page", color=0x01a500)
+        page3 = discord.Embed(title="Fun Commands List", description="Page 3", color=0x01a500)
         page3.set_author(name="MushBall")
         page3.set_thumbnail(url="https://cdn.frankerfacez.com/emoticon/388352/4")
-        page3.add_field(name="**.mushcrypto**",value="I give a summary of the crypto market today that I wrote and definitely didn't steal",inline=False)
-        page3.add_field(name="**.fuck**", value="Just do it and see for yourself",inline=False)
-        page3.add_field(name="**.food/.drink**",value="I suggest something random to eat/drink",inline=False)
-        page3.add_field(name="**.hi**",value="Say hi to me, I get lonely",inline=False)
-        page3.add_field(name="**.bye**",value="Be nice and say bye",inline=False)
-        page3.add_field(name="**.shots**", value="SHOTS",inline=False)
+        page3.add_field(name="**.afl**",value="Jas fucked up once, and we don't let her forget",inline=False)
+        page3.add_field(name="**.milk**", value="I hate milk, but I got a lot of gifs of it",inline=False)
+        page3.add_field(name="**.step `<@USER>`**",value="Once again, I think this a degrading thing but I dont judge",inline=False)
+        page3.add_field(name="**.spit `<@USER>`**",value="I think this is for the people that like degrading",inline=False)
+        page3.add_field(name="**.cry**",value="Demon fighting hours",inline=False)
         page3.set_footer(text="@Mush if you wanna suggest something")
 
-        self.client.help_pages = [page1, page2, page3]
+
+        page4 = discord.Embed(title="Fun Commands List", description="Last Page", color=0x01a500)
+        page4.set_author(name="MushBall")
+        page4.set_thumbnail(url="https://cdn.frankerfacez.com/emoticon/388352/4")
+        page4.add_field(name="**.mushcrypto**",value="I give a summary of the crypto market today that I wrote and definitely didn't steal",inline=False)
+        page4.add_field(name="**.fuck**", value="Just do it and see for yourself",inline=False)
+        page4.add_field(name="**.food**",value="I suggest something random to eat/drink",inline=False)
+        page4.add_field(name="**.bar**",value="I have a lot of alcoholic drinks to recommend ;)",inline=False)
+        page4.add_field(name="**.hi**",value="Say hi to me, I get lonely",inline=False)
+        page4.add_field(name="**.bye**",value="Be nice and say bye",inline=False)
+        page4.add_field(name="**.shots**", value="SHOTS",inline=False)
+        page4.set_footer(text="@Mush if you wanna suggest something")
+
+        self.client.help_pages = [page1, page2, page3,page4]
         buttons = [u"\u2B05", u"\u27A1"] # skip to start, left, right, skip to end
         current = 0
         msg = await ctx.send(embed=self.client.help_pages[current])
@@ -81,7 +100,7 @@ class Help(commands.Cog):
 
                 if current != previous_page:
                     await msg.edit(embed=self.client.help_pages[current])
-
+    
     @commands.command()
     async def customhelp(self,ctx):
         #Help Pages
@@ -111,7 +130,7 @@ class Help(commands.Cog):
         
         page2.set_footer(text="@Mush if you want your own personal command but no guarantees i'll make it")
 
-        page3 = discord.Embed(title="Commands List", description="Last Page", color=0x01a500)
+        page3 = discord.Embed(title="Commands List", description="Page 3", color=0x01a500)
         page3.set_author(name="MushBall")
         page3.set_thumbnail(url="https://cdn.frankerfacez.com/emoticon/388352/4")
         page3.add_field(name="**.zhu `<@USER>`**",value="Drink some joose",inline=False)
@@ -123,7 +142,27 @@ class Help(commands.Cog):
         page3.add_field(name="**.burg**", value="I just make no sense", inline=False)
         page3.set_footer(text="@Mush if you want your own personal command but no guarantees i'll make it")
 
-        self.client.help_pages = [page1, page2, page3]
+        page4 = discord.Embed(title="Commands List", description="Page 4", color=0x01a500)
+        page4.set_author(name="MushBall")
+        page4.set_thumbnail(url="https://cdn.frankerfacez.com/emoticon/388352/4")
+        page4.add_field(name="**.jeff**",value="Cute dancing bear",inline=False)
+        page4.add_field(name="**.oen**",value="Just Oen being Oen", inline=False)
+        page4.add_field(name="**.soda**",value="Soda being weird as always",inline=False)
+        page4.add_field(name="**.franny**", value="No concert", inline=False)
+        page4.add_field(name="**.kit**", value="Idk why she's so obssessed with milk", inline=False)
+        page4.add_field(name="**.jas**", value="Jas crys a lot I guess", inline=False)
+        page4.add_field(name="**.ikalgo**", value="He's wholesome (sometimes)", inline=False)
+        page4.set_footer(text="@Mush if you want your own personal command but no guarantees i'll make it")
+
+        page5 = discord.Embed(title="Commands List", description="Last Page", color=0x01a500)
+        page5.set_author(name="MushBall")
+        page5.set_thumbnail(url="https://cdn.frankerfacez.com/emoticon/388352/4")
+        page5.add_field(name="**.capi**", value="Goose is all hers", inline=False)
+        page5.add_field(name="**.nate `<@USER>`**", value="Nate likes spitting on people", inline=False)
+        page5.add_field(name="**.anise `<@USER>`**", value="Anise likes stepping on people", inline=False)
+        page5.set_footer(text="@Mush if you want your own personal command but no guarantees i'll make it")
+
+        self.client.help_pages = [page1, page2, page3,page4,page5]
         buttons = [u"\u2B05", u"\u27A1"] # skip to start, left, right, skip to end
         current = 0
         msg = await ctx.send(embed=self.client.help_pages[current])
@@ -163,7 +202,7 @@ class Help(commands.Cog):
         page1.set_thumbnail(url="https://cdn.frankerfacez.com/emoticon/388352/4")
         page1.add_field(name="**.coinflip `<heads or tails>` `<amount>`**", value="Gamble on a coinflip *win 2x your bet*", inline=False)
         page1.add_field(name="**.highlow `<amount>` `<high/low>`**", value="Bet on wheter a randum number is going to be high or low *win 2x your bet*", inline=False)
-        page1.add_field(name="**.blackjack `<amount>`**", value="Lets see if you can beat the dealer *win 3x your bet*", inline=False)
+        page1.add_field(name="**.blackjack `<amount>`**", value="Lets see if you can beat the dealer *win 2x your bet*", inline=False)
         page1.add_field(name="**.slots `<amount>`**", value="Try your luck playing slots *win 10x your bet*", inline=False)
         page1.add_field(name="**.cups `1-4` `<amount>`**", value="Guess which cup the ball is under *win 3x your bet*", inline=False)
         page1.add_field(name="**.lottery**", value="For when you're feeling lucky", inline=False)

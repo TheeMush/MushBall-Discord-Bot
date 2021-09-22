@@ -273,7 +273,7 @@ class Customs(commands.Cog):
     async def capi(self,ctx):
         await ctx.reply("<@250432585006579712> is <@813475035644690474>'s")
 
-    #Spit/Nate
+    #Step/Ani
     @commands.command(aliases=['ani','anise'])
     @commands.cooldown(1,10, commands.BucketType.member)
     async def step(self, ctx, member = None):
