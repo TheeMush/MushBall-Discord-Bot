@@ -560,6 +560,12 @@ bite = [
     "https://media1.tenor.com/images/a9eacd8925b5dc9bb2097ec043cfea45/tenor.gif?itemid=16834570",
     "https://media1.tenor.com/images/764261bdb23031c1ff0c79fbb709dea0/tenor.gif?itemid=15634858",
     "https://media1.tenor.com/images/74b40214bd0432cb38f127e6adcffcf6/tenor.gif?itemid=17924889",
+    "https://c.tenor.com/MpE1eijnZDEAAAAC/cat-bite-cheek.gif",
+    "https://c.tenor.com/dMwVSBT6dwUAAAAd/gato-morder.gif",
+    "https://cdn.discordapp.com/attachments/833141982704304148/870684260401557584/image0.gif",
+    "https://cdn.discordapp.com/attachments/833141982704304148/870684312033431552/image0.gif",
+    "https://cdn.discordapp.com/attachments/833141982704304148/870684586961694720/image0.gif",
+    "https://cdn.discordapp.com/attachments/833141982704304148/870684871138353192/image0.gif",
 ]
 
 mush = [
@@ -589,4 +595,48 @@ franny = [
     "https://c.tenor.com/r3H9bOvceb0AAAAC/stitch-guitar.gif",
     "https://c.tenor.com/yTaaiC62dykAAAAC/stitch-guitar.gif",
     "https://c.tenor.com/E-W77aMrJqsAAAAC/guitar-sing.gif",
+]
+
+milk = [
+    "https://c.tenor.com/mnjLOnr-l8cAAAAd/choclate-anime.gif",
+    "https://c.tenor.com/LuhLvhos4iwAAAAd/winry-you-didnt-drink-your-milk.gif",
+    "https://c.tenor.com/zniLfduXahoAAAAC/anime-tejina-senpai.gif",
+    "https://c.tenor.com/N8N8_6UbGFIAAAAC/milk-anime.gif",
+    "https://c.tenor.com/TYrA5WhOdm4AAAAC/milk-aesthetic.gif",
+    "https://c.tenor.com/aPSQxKarUAsAAAAd/nananiji-drink.gif",
+    "https://c.tenor.com/fUYvn_caiQwAAAAC/anime-dailylivesofhighschoolboys.gif",
+    "https://c.tenor.com/M98GsRFxfO4AAAAC/tabootattoo-anime.gif",
+    "https://c.tenor.com/V9JWpjPMNEoAAAAC/milk-and-mocha-milk.gif"
+]
+
+cry = [
+    "https://c.tenor.com/w_ITTWyyiuYAAAAC/the-amazing-world-of-gumball-gumball.gif",
+    "https://c.tenor.com/T_JRpjG5zYMAAAAC/cry-ugly-crying.gif",
+    "https://c.tenor.com/ppqVQB1PoBAAAAAC/tom-y-jerry-tom-and-jerry.gif",
+    "https://c.tenor.com/ax0wvn_16NwAAAAC/sad-crying.gif",
+    "https://c.tenor.com/Z8nFcOUhEP0AAAAd/why-crying.gif"
+]
+
+spit = [
+    "https://c.tenor.com/KmG2gir0DGIAAAAC/gross-omg.gif",
+    "https://c.tenor.com/heztdFpNuocAAAAC/spit-anime.gif",
+    "https://c.tenor.com/IA3_1h8ePZkAAAAC/sailormoon-anime.gif",
+    "https://c.tenor.com/o3wkW4K7GWwAAAAC/teddy-loyd-mememe.gif",
+    "https://c.tenor.com/KVGu3BAgHygAAAAC/homo-kame.gif",
+    "https://c.tenor.com/dGYLjgQo0IAAAAAC/pocahontas-spit.gif",
+    "https://c.tenor.com/VIW1_G0whq4AAAAC/spongebob-squarepants-gary-takes-a-bath.gif",
+    "https://c.tenor.com/oLCrUfgO-OEAAAAC/mulan-disney.gif",
+    "https://c.tenor.com/nMfD4uMDoukAAAAC/lilo-and-stitch-disney.gif",
+    "https://c.tenor.com/T7FsqnthVxAAAAAd/dilophosaurus-jurrasicpark.gif",
+    "https://c.tenor.com/BuPujeji5YQAAAAC/gingerbread-shrek.gif",
+    "https://c.tenor.com/NX0xVfSKqpsAAAAd/jason-todd-go-to-sleep.gif",
+    "https://c.tenor.com/iVRw7dj_KxoAAAAC/frieza-fight.gif"
+]
+
+step = [ 
+    "https://c.tenor.com/yx3znYa35OIAAAAC/anime-mm.gif",
+    "https://c.tenor.com/_dYFs-l4wLUAAAAd/ora-uruha-rushia.gif",
+    "https://c.tenor.com/5kJRAQ4zuOoAAAAC/stepped-on-step-on.gif",
+    "https://c.tenor.com/h3vzDnfFxpMAAAAC/penguindrum-stepped-on.gif",
+    "https://c.tenor.com/_3r4NyScHVQAAAAC/stepped-on-oreimo.gif"
 ]

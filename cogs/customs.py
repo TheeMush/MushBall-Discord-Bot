@@ -208,9 +208,9 @@ class Customs(commands.Cog):
     @commands.cooldown(1,10, commands.BucketType.member)
     async def franny(self, ctx):
         from cogs.Lists.lists import franny
-        rangym = random.choice(franny)
+        ranfran = random.choice(franny)
         embed=discord.Embed(description=f"**No Concert**", color=discord.Colour.random())
-        embed.set_image(url=f"{rangym}")
+        embed.set_image(url=f"{ranfran}")
         await ctx.send(embed=embed)
 
     #AFL
@@ -219,7 +219,82 @@ class Customs(commands.Cog):
     async def afl(self, ctx):
         await ctx.send("https://cdn.discordapp.com/attachments/832138050410381312/889336589082329158/unknown.png")
 
+    #Milk/Kit
+    @commands.command(aliases=['milk'])
+    @commands.cooldown(1,10, commands.BucketType.member)
+    async def kit(self, ctx):
+        from cogs.Lists.lists import milk
+        ranmilk = random.choice(milk)
+        embed=discord.Embed(description=f"**Drink Some Milk**", color=discord.Colour.random())
+        embed.set_image(url=f"{ranmilk}")
+        await ctx.send(embed=embed)
 
+    #Spit/Nate
+    @commands.command(aliases=['nate'])
+    @commands.cooldown(1,10, commands.BucketType.member)
+    async def spit(self, ctx, member = None):
+        if member == None:
+            embed = discord.Embed(description="• **.spit** <`@USER`>\n• Aliases = `.nate`", color=discord.Colour.random())
+            embed.set_author(name = "Spit Usage:",icon_url=ctx.author.avatar_url)
+            await ctx.reply(embed=embed)
+            self.spit.reset_cooldown(ctx)
+            return
+        elif '569792736367083560' in ctx.message.content:
+            await ctx.reply("You can't spit on Mush, show some respect")
+            return
+        elif 'mush' in ctx.message.content.lower():
+            await ctx.reply("You can't spit on Mush, show some respect")
+            return
+
+        from cogs.Lists.lists import spit
+        ranspit = random.choice(spit)
+        embed=discord.Embed(description=f"**{ctx.author.mention} Spit On {member}**",color=discord.Colour.random())
+        embed.set_image(url=f"{ranspit}")
+        await ctx.send(embed=embed)
+    #Cry/Jas
+    @commands.command(aliases=['jas'])
+    @commands.cooldown(1,10, commands.BucketType.member)
+    async def cry(self, ctx):
+        from cogs.Lists.lists import cry
+        rancry = random.choice(cry)
+        embed=discord.Embed(color=discord.Colour.random())
+        embed.set_image(url=f"{rancry}")
+        await ctx.send(embed=embed)
+
+    #Ikalgo
+    @commands.command()
+    @commands.cooldown(1,10,commands.BucketType.member)
+    async def ikalgo(self,ctx):
+        await ctx.reply("Wholesome Ikalgo")
+
+    #Capi
+    @commands.command()
+    @commands.cooldown(1,10,commands.BucketType.member)
+    async def capi(self,ctx):
+        await ctx.reply("<@250432585006579712> is <@813475035644690474>'s")
+
+    #Spit/Nate
+    @commands.command(aliases=['ani','anise'])
+    @commands.cooldown(1,10, commands.BucketType.member)
+    async def step(self, ctx, member = None):
+        if member == None:
+            embed = discord.Embed(description="• **.step** <`@USER`>\n• Aliases = `.ani\.anise`", color=discord.Colour.random())
+            embed.set_author(name = "Step On Usage:",icon_url=ctx.author.avatar_url)
+            await ctx.reply(embed=embed)
+            self.spit.reset_cooldown(ctx)
+            return
+        elif '569792736367083560' in ctx.message.content:
+            await ctx.reply("You can't step on Mush, show some respect")
+            return
+        elif 'mush' in ctx.message.content.lower():
+            await ctx.reply("You can't step on Mush, show some respect")
+            return
+
+        from cogs.Lists.lists import step
+        ranstep = random.choice(step)
+        embed=discord.Embed(description=f"**{ctx.author.mention} Stepped On {member}**",color=discord.Colour.random())
+        embed.set_image(url=f"{ranstep}")
+        await ctx.send(embed=embed)
 
 
 def setup(client):
