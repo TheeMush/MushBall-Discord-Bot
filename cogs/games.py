@@ -397,7 +397,120 @@ class games(commands.Cog):
         await ctx.reply(embed=embed)
         print(f"```{traceback.format_exc()}```")
 
-    
+    @commands.command()
+    async def crash(self,ctx,amount = None):
+        if amount == None:
+            embed = discord.Embed(description="• **.crash** <`AMOUNT`>", color=red)
+            embed.set_author(name = "Crash Usage:",icon_url=ctx.author.avatar_url)
+            await ctx.reply(embed=embed)
+            self.crash.reset_cooldown(ctx)
+            return
+
+        bal = await update_bank(ctx,ctx.author.id,0,0)
+        amount = int(amount)
+
+        if amount>bal[0]:
+            embed = discord.Embed(description="You don't have that much!", color=red)
+            embed.set_author(name = "Crash",icon_url=ctx.author.avatar_url)
+            await ctx.reply(embed=embed)
+            self.crash.reset_cooldown(ctx)
+            return
+        if amount<0:
+            embed = discord.Embed(description="You can't put a negative!", color=red)
+            embed.set_author(name = "Crash",icon_url=ctx.author.avatar_url)
+            await ctx.reply(embed=embed)
+            self.crash.reset_cooldown(ctx)
+            return
+
+        #ACTUAL CODE
+        
+        try:
+            msg = await ctx.send('**Starting Crash Game** <a:loading:869964972594192414>')
+            await asyncio.sleep(2.9)
+            await msg.delete()
+
+            def check(message):
+                return message.author == ctx.author 
+
+            await ctx.reply('Enter the number you want to cash out at (Between 1.0-15.0)?')
+
+            try:
+                message = await self.client.wait_for('message', check=check, timeout= 30)
+            except asyncio.TimeoutError:
+                await ctx.reply("You didn't make a decision fast enough")
+
+            choice = message.content
+
+            try:
+                choice = float(choice)
+                choice = round(choice,1)
+
+                if choice > 15:
+                    await ctx.send("Why tf you going over 15.0, the instructions aren't that hard ._.")
+                    return
+                elif choice < 1:
+                    await ctx.send("Are you dumb? Choose something between 1.0 and 15.0")
+                    return
+            except Exception:
+                await ctx.send("You fucked something up, make sure you choose a number between 1.0 and 15.0")
+                return
+              
+            rand = random.randint(1,4)
+            if rand == 1:
+                x = round(random.uniform(1,1.7), 1)
+            elif rand > 2:
+                x = round(random.uniform(1,2), 1)
+            else:
+                x = round(random.uniform(1,15), 1)
+
+            y = 1.0
+
+            emoji = "<a:pepeToiletRocket:890318300402315264>"
+
+            embed = discord.Embed(title = f"{emoji}  __Crash__  {emoji}", color=discord.Colour.random())
+            embed.add_field(name='**Your Guess:**', value=choice,inline=True)
+            embed.set_author(name = "MushBall's Casino",icon_url=ctx.author.avatar_url)
+
+            message = await ctx.send(embed=embed)
+
+            for z in range(15):
+                z += 1
+                y = round(y,1)
+
+                embed = discord.Embed(title = f"{emoji}  __Crash__  {emoji}", color=discord.Colour.random())
+                embed.add_field(name='**Your Guess:**', value=choice,inline=True)
+                embed.add_field(name='**Outcome:**', value=y,inline=True)
+                embed.set_author(name = "MushBall's Casino",icon_url=ctx.author.avatar_url)
+
+                await message.edit(embed=embed)
+
+                if y == x:
+                    break
+
+                y = y + 0.1
+                
+                await asyncio.sleep(1)
+			
+            embed = discord.Embed(title = f"{emoji}  __Crash__  {emoji}", color=discord.Colour.random())
+            embed.add_field(name='**Your Guess:**', value=choice,inline=True)
+            embed.add_field(name='**Outcome:**', value=x,inline=True)
+            embed.set_author(name = "MushBall's Casino",icon_url=ctx.author.avatar_url)
+
+            if choice > x:
+                embed.add_field(name="**You Lost! Sucks to suck, try again**",value='** **',inline=False)
+                await update_bank(ctx,ctx.author.id,-1*amount,0)
+                await message.edit(embed=embed)
+            elif choice <= x:
+                earnings = math.ceil(choice*amount)
+                embed.add_field(name = f"**You Won** ${format (earnings, ',d')}",value='** **',inline=False)
+                await message.edit(embed=embed)
+                await update_bank(ctx,ctx.author.id,earnings,0)
+
+
+        except:
+            print(f"```{traceback.format_exc()}```")
+
+        
 
 def setup(client):
     client.add_cog(games(client))
