@@ -197,82 +197,124 @@ class gamecommands(commands.Cog):
     @commands.command()
     @commands.cooldown(1, 3600, commands.BucketType.member)
     async def rob(self,ctx,member:discord.Member=None):
-        if member == ctx.author:
-            ctx.reply("Ayo? Why are you trying to rob yourself?")
-            self.rob.reset_cooldown(ctx)
-            return
+        try:
+            if member == ctx.author:
+                ctx.reply("Ayo? Why are you trying to rob yourself?")
+                self.rob.reset_cooldown(ctx)
+                return
 
-        if member == None:
-            embed = discord.Embed(description="• **.rob** `@USER`", color=red)
-            embed.set_author(name = "Rob Usasge:",icon_url=ctx.author.avatar_url)
-            await ctx.reply(embed=embed)
-            self.rob.reset_cooldown(ctx)
-            return
+            if member == None:
+                embed = discord.Embed(description="• **.rob** `@USER`", color=red)
+                embed.set_author(name = "Rob Usasge:",icon_url=ctx.author.avatar_url)
+                await ctx.reply(embed=embed)
+                self.rob.reset_cooldown(ctx)
+                return
 
-        rannum = random.randint(1, 100)
-        if rannum > 33:
-            failnum = random.randint(1,100)
-            if failnum > 50:
-                bal = await self.update_bank(ctx,ctx.author.id,0,0)
+            rannum = random.randint(1, 100)
+            if rannum > 33:
+                failnum = random.randint(1,100)
 
-                ranearn = math.ceil(bal[0]/3)
-                if bal[0] < math.ceil(bal[1]/20):
-                    ranearn = math.ceil(bal[1]/6)
+                #Rob failed and user loses money
+                if failnum > 50:
+                    bal = await self.update_bank(ctx,ctx.author.id,0,0)
+                    ranearn = math.ceil(bal[0]/3)
+
+                    #If user has no money in wallet
+                    if bal[0] == 0:
+                        
+                        #If user also has no money in bank, bot does 50/50 chance of either robbing or completely failing 
+                        if bal[1] == 0:
+                            num = random.randint(1,100)
+                            
+                            #If rob succeeds
+                            if num > 50:
+                                bal = await self.update_bank(ctx,member.id,0,0)
+
+                                if bal[0] == 0:
+                                    embed = discord.Embed(description=f"{member.mention} has no money in their wallet. Rob someone else", color=red)
+                                    embed.set_author(name = f"You fucked up {ctx.author.name}",icon_url=ctx.author.avatar_url)
+                                    self.rob.reset_cooldown(ctx)
+                                    await ctx.send(embed=embed)
+                                    return
+
+                                ranearn = math.ceil(bal[0]/3)
+                                earnings = random.randrange(ranearn)
+                                if earnings > 350000:
+                                    earnings = random.randrange(350000)
+
+                                await self.update_bank(ctx,ctx.author.id,earnings,0)
+                                await self.update_bank(ctx,member.id,-1*earnings,0)
+
+                                embed=discord.Embed(title=f"<a:pepelaugh:830637673005449226> Damn thats fucked up but it worked <a:pepelaugh:830637673005449226>", description=f"{ctx.author.mention} robbed {member.mention} and stole `${format (earnings, ',d')}`", color=gold)
+                                await ctx.send(embed=embed)
+                                return
+                            
+                            else:
+                                embed=discord.Embed(title=f"<:pepehehe:830637673042542692> {ctx.author.name} really out here trying to steal <:pepehehe:830637673042542692>", description=f"It didn't work, earn your money fairly", color=red)
+                                await ctx.send(embed=embed)
+                                return
+
+                        else:
+                            ranearn = math.ceil(bal[1]/10)
+
+                    #If users wallet is lower than a 20th of their bank
+                    if bal[0] < math.ceil(bal[1]/20):
+                        ranearn = math.ceil(bal[1]/6)
+
+                        earnings = random.randrange(ranearn)
+                        if earnings > 350000:
+                            earnings = random.randrange(350000)
+
+                        await self.update_bank(ctx,ctx.author.id,0,-1*earnings)
+                        await self.update_bank(ctx,member.id,earnings,0)
+
+                        embed=discord.Embed(title=f"<a:hyperkek:834534161313955900> {ctx.author.name} got caught stealing <a:hyperkek:834534161313955900>", description=f"You give {member.mention} `${format (earnings, ',d')}` instead", color=red)
+                        await ctx.send(embed=embed)
+
+                        return
 
                     earnings = random.randrange(ranearn)
                     if earnings > 350000:
                         earnings = random.randrange(350000)
 
-                    await self.update_bank(ctx,ctx.author.id,0,-1*earnings)
+                    await self.update_bank(ctx,ctx.author.id,-1*earnings,0)
                     await self.update_bank(ctx,member.id,earnings,0)
 
                     embed=discord.Embed(title=f"<a:hyperkek:834534161313955900> {ctx.author.name} got caught stealing <a:hyperkek:834534161313955900>", description=f"You give {member.mention} `${format (earnings, ',d')}` instead", color=red)
                     await ctx.send(embed=embed)
+                else:
+                    embed=discord.Embed(title=f"<:pepehehe:830637673042542692> {ctx.author.name} really out here trying to steal <:pepehehe:830637673042542692>", description=f"It didn't work, earn your money fairly", color=red)
+                    await ctx.send(embed=embed)
+                
+            else:
 
+                bal = await self.update_bank(ctx,member.id,0,0)
+
+                if bal[0] == 0:
+                    embed = discord.Embed(description=f"{member.mention} has no money in their wallet. Rob someone else", color=red)
+                    embed.set_author(name = f"You fucked up {ctx.author.name}",icon_url=ctx.author.avatar_url)
+                    self.rob.reset_cooldown(ctx)
+                    await ctx.send(embed=embed)
                     return
 
-                    
-
+                ranearn = math.ceil(bal[0]/3)
                 earnings = random.randrange(ranearn)
                 if earnings > 350000:
                     earnings = random.randrange(350000)
 
-                await self.update_bank(ctx,ctx.author.id,-1*earnings,0)
-                await self.update_bank(ctx,member.id,earnings,0)
+                await self.update_bank(ctx,ctx.author.id,earnings,0)
+                await self.update_bank(ctx,member.id,-1*earnings,0)
 
-                embed=discord.Embed(title=f"<a:hyperkek:834534161313955900> {ctx.author.name} got caught stealing <a:hyperkek:834534161313955900>", description=f"You give {member.mention} `${format (earnings, ',d')}` instead", color=red)
+                embed=discord.Embed(title=f"<a:pepelaugh:830637673005449226> Damn thats fucked up but it worked <a:pepelaugh:830637673005449226>", description=f"{ctx.author.mention} robbed {member.mention} and stole `${format (earnings, ',d')}`", color=gold)
                 await ctx.send(embed=embed)
-            else:
-                embed=discord.Embed(title=f"<:pepehehe:830637673042542692> {ctx.author.name} really out here trying to steal <:pepehehe:830637673042542692>", description=f"It didn't work, earn your money fairly", color=red)
-                await ctx.send(embed=embed)
-            
-        else:
-
-            bal = await self.update_bank(ctx,member.id,0,0)
-
-            if bal[0] == 0:
-                embed = discord.Embed(description=f"{member.mention} has no money in their wallet. Rob someone else", color=red)
-                embed.set_author(name = f"You fucked up {ctx.author.name}",icon_url=ctx.author.avatar_url)
-                self.rob.reset_cooldown(ctx)
-                await ctx.send(embed=embed)
-                return
-
-            ranearn = math.ceil(bal[0]/3)
-            earnings = random.randrange(ranearn)
-            if earnings > 350000:
-                earnings = random.randrange(350000)
-
-            await self.update_bank(ctx,ctx.author.id,earnings,0)
-            await self.update_bank(ctx,member.id,-1*earnings,0)
-
-            embed=discord.Embed(title=f"<a:pepelaugh:830637673005449226> Damn thats fucked up but it worked <a:pepelaugh:830637673005449226>", description=f"{ctx.author.mention} robbed {member.mention} and stole `${format (earnings, ',d')}`", color=gold)
-            await ctx.send(embed=embed)
+        except Exception:
+            print(traceback.format_exc())
     #ROB ERROR HANDLING
     @rob.error
     async def rob_error(self,ctx, error):
         if isinstance(error, commands.CommandOnCooldown):
             return
-        await ctx.reply("Try Again")
+        await ctx.reply("Something went wrong o.o try Again @mush#6666")
         print(error)
         self.rob.reset_cooldown(ctx)
 
