@@ -18,7 +18,6 @@ class lottery(commands.Cog):
         self.client = client
 
     @commands.command(aliases=['lotto'])
-    @commands.cooldown(1, 86400, commands.BucketType.member)
     async def lottery(self,ctx):
         try:
             pool = await self.open_list(ctx)
@@ -47,8 +46,8 @@ class lottery(commands.Cog):
                 return
 
             if reaction.emoji == "\u2705":
-                if bal[2] < 1000000:
-                    embed.add_field(name="\nYou need to have a TOTAL of ATLEAST:\n$1,000,000",value="** **",inline=False)
+                if bal[2] < 100000:
+                    embed.add_field(name="\nYou need to have a TOTAL of ATLEAST:\n$100,000",value="** **",inline=False)
                     embed.set_footer(text="Go gamble more broke ass")  
                     await msg.clear_reactions()
                     await msg.edit(embed=embed)
@@ -60,9 +59,9 @@ class lottery(commands.Cog):
                 await msg.edit(embed=embed)
                 await asyncio.sleep(2.5)
 
-                rannum = random.randint(1, 1000)
+                rannum = random.randint(1, 200)
 
-                if rannum == 666:
+                if rannum == 66:
                     embed = discord.Embed(title=f"{slots} MushBall's Lottery {slots}",description=f"**{ctx.author.mention} You WON!!!!**", color=discord.Colour.random())
                     embed.set_thumbnail(url=ctx.author.avatar_url)
                     embed.set_footer(text="Lemme get some money")

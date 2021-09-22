@@ -87,6 +87,11 @@ class Misc(commands.Cog):
                 pass
             else:
                 await message.reply("You mean Sarah")
+        if 'boba' in message.content.lower():
+            msg = message.content.lower()
+            split = msg.split()
+            if 'boba' in split:
+                await message.reply('You mean booba')
     
     @commands.command()
     async def realname(self,ctx,member:discord.Member):

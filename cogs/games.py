@@ -189,7 +189,7 @@ class games(commands.Cog):
     @commands.command(aliases = ["hl"])
     @commands.cooldown(1, 10, commands.BucketType.member)
     async def highlow(self,ctx,amount = None,guess = None,num = None):
-        embed = discord.Embed(description="• **.highlow `<bet amount>` `<high/low>` `<number>`\n• Aliases = `.hl`\n\n**Low** = **1-16**\n**High** = **17-32**\n\n", color=red)
+        embed = discord.Embed(description="• **.highlow** `<bet amount>` `<high/low>` `<number>`\n• Aliases = `.hl`\n\n**Low** = **1-16**\n**High** = **17-32**\n\n", color=red)
         embed.set_author(name = "HighLow Usage:",icon_url=ctx.author.avatar_url)
         embed.set_footer(text="<number> is optional but you win 10x if you guess correctly")
 
@@ -202,6 +202,8 @@ class games(commands.Cog):
             self.highlow.reset_cooldown(ctx)
             return
 
+        await ctx.reply("Highlow is broken play something else ._.")
+        return
         rannum = random.randrange(1,32)
         bal = await update_bank(ctx,ctx.author.id,0,0)
         luck = await update_luck(ctx,ctx.author.id,0)
@@ -233,7 +235,7 @@ class games(commands.Cog):
         else:
             outcome = "LOW"
 
-        if luck < 20:
+        if luck < 40:
             if guess.lower() == 'high':
                 choices = ["HIGH","LOW", "LOW", "LOW","LOW"]
                 outcome = random.choice(choices)
@@ -241,7 +243,7 @@ class games(commands.Cog):
                 choices = ["HIGH","HIGH", "HIGH","HIGH","LOW"]
                 outcome = random.choice(choices)
                 
-        if luck < 60:
+        if luck < 80:
             if guess.lower() == 'high':
                 choices = ["HIGH","LOW", "LOW","LOW","LOW"]
                 outcome = random.choice(choices)

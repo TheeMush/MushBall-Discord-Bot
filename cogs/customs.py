@@ -213,7 +213,11 @@ class Customs(commands.Cog):
         embed.set_image(url=f"{rangym}")
         await ctx.send(embed=embed)
 
-
+    #AFL
+    @commands.command()
+    @commands.cooldown(1, 20, commands.BucketType.member)
+    async def afl(self, ctx):
+        await ctx.send("https://cdn.discordapp.com/attachments/832138050410381312/889336589082329158/unknown.png")
 
 
 

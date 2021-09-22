@@ -1,6 +1,7 @@
 import discord
 import random
 import asyncio
+from discord import embeds
 from discord.ext import commands
 
 class Help(commands.Cog):
@@ -227,6 +228,21 @@ class Help(commands.Cog):
                 if current != previous_page:
                     await msg.edit(embed=self.client.help_pages[current])
 
+    @commands.command()
+    async def musichelp(self,ctx):
+        #Help Pages
+        page1 = discord.Embed(title="**__Music Help__**", color=0x01a500)
+        page1.set_author(name="Commands List")
+        page1.set_thumbnail(url="https://cdn.frankerfacez.com/emoticon/388352/4")
+        page1.add_field(name="**.play <SONG URL/NAME>**", value="Play a song from YouTube (If a song is already playing, your song gets added to the queue)", inline=False)
+        page1.add_field(name="**.skip**", value="Skips the current song playing", inline=False)
+        page1.add_field(name="**.clear**", value="Clears the queue", inline=False)
+        page1.add_field(name="**.queue** <PAGE #>", value="Shows the song queue (Add page # to go through pages)", inline=False)
+        page1.add_field(name="**.delete** <queue number>", value="Deletes a song in the queue", inline=False)
+        
+        await ctx.send(embed=page1)
+        
 
+       
 def setup(client):
     client.add_cog(Help(client))

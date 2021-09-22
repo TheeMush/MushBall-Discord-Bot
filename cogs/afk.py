@@ -5,7 +5,7 @@ from pymongo import MongoClient
 import traceback
 import datetime
 import random
-import time
+
 intents = discord.Intents.default()
 intents.members = True
 
