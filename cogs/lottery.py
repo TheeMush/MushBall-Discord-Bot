@@ -21,15 +21,13 @@ class lottery(commands.Cog):
     async def lottery(self,ctx):
         try:
             pool = await self.open_list(ctx)
-            bal = await self.total_amt(ctx)
-            half = int(math.ceil((bal[2]) / 2))
+            bal = await update_bank(ctx,ctx.author.id,0,0)
 
             slots = "<a:slots:847746097711677461> <a:slots:847746097711677461> <a:slots:847746097711677461>"
             embed = discord.Embed(title=f"{slots} MushBall's Lottery {slots}", color=discord.Colour.random())
             embed.add_field(name="**Current Pool:**",value=f"`${format (pool, ',d')}`",inline=True)
-            embed.add_field(name="Total Balance:",value=f"`${format (bal[2], ',d')}`",inline=True)
-            embed.add_field(name="Half Balance:",value=f"`${format (half, ',d')}`",inline=True)
-            embed.set_footer(text="Playing the lottery takes half your balance!")
+            embed.add_field(name="Total Balance:",value=f"`${format ((bal[0]+bal[1]), ',d')}`",inline=True)
+            embed.set_footer(text="Playing the lottery takes $25,000!")
             buttons = ['\u2705',"\u274C"] 
 
             msg = await ctx.send(embed=embed)     
@@ -46,8 +44,8 @@ class lottery(commands.Cog):
                 return
 
             if reaction.emoji == "\u2705":
-                if bal[2] < 100000:
-                    embed.add_field(name="\nYou need to have a TOTAL of ATLEAST:\n$100,000",value="** **",inline=False)
+                if bal[0] < 25000:
+                    embed.add_field(name="\nYou need to have a $25,000 to play the lottery idiot",value="** **",inline=False)
                     embed.set_footer(text="Go gamble more broke ass")  
                     await msg.clear_reactions()
                     await msg.edit(embed=embed)
@@ -67,18 +65,15 @@ class lottery(commands.Cog):
                     embed.set_footer(text="Lemme get some money")
 
                     roles.update_one({ "_id": ctx.guild.id, "lottopool.pool": int(pool) }, { "$set": {"lottopool.$.pool": 10000000}})
-                    await update_bank(ctx,ctx.author.id,-1*bal[0],bal[0])
                     await update_bank(ctx,ctx.author.id,0,pool)
                     await msg.edit(embed=embed)
                 else:
                     embed = discord.Embed(title=f"{slots} MushBall's Lottery {slots}",description=f"**Sorry {ctx.author.mention} You Lost**", color=discord.Colour.random())
                     embed.set_author(name="Lottery Results", icon_url=ctx.author.avatar_url)
                     embed.set_footer(text="Sucks to suck huh")
-                    change = int(pool) + half
+                    change = int(pool) + 25000
                     roles.update_one({ "_id": ctx.guild.id, "lottopool.pool": int(pool) }, { "$set": {"lottopool.$.pool": change}})
-
-                    await update_bank(ctx,ctx.author.id,-1*bal[0],bal[0])
-                    await update_bank(ctx,ctx.author.id,0,-1*half)
+                    await update_bank(ctx,ctx.author.id,-25000,0)
                     await msg.edit(embed=embed)
 
             else:
@@ -115,19 +110,6 @@ class lottery(commands.Cog):
         
         return pool
 
-    async def total_amt(self,ctx):
-        await update_bank(ctx,ctx.author.id,0,0)
-
-        lol = money.find({'_id': ctx.guild.id},{'userAccounts'})
-        for x in lol:
-            for y in x['userAccounts']:
-                if y["wallet"] == '** **':
-                    continue
-                if y["id"] == ctx.author.id:
-                    total = int(y["wallet"]) + int(y["bank"])
-                    bal = [y["wallet"],y["bank"],total]
-        
-        return bal
    
     
 def setup(bot):
