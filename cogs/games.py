@@ -2,6 +2,7 @@ import discord
 import asyncio
 import random
 import traceback
+import math
 from discord.ext import commands
 from cogs.Lists.functions import update_bank
 from cogs.Lists.functions import update_luck
@@ -21,35 +22,52 @@ class games(commands.Cog):
     @commands.command()
     @commands.cooldown(1, 20, commands.BucketType.member)
     async def beg(self,ctx):
-        beglist = ["I'm feeling generous, here's","You're begging? How pitiful, here's","I like you, take","And people say I'm not nice, this is for you"]
-        beglist2 = ['Imagine begging','Broke ass','Just gamble',"Kinda sad you're begging"]
-        takelist = ["What makes you think I'd give you money?","I worked hard for my money, I'm not giving you any","Earn your money the hard way"]
-        ransent = random.choice(beglist)
+        try:
+            beglist = ["I'm feeling generous, here's","You're begging? How pitiful, here's","I like you, take","And people say I'm not nice, this is for you"]
+            beglist2 = ['Imagine begging','Broke ass','Just gamble',"Kinda sad you're begging"]
+            takelist = ["What makes you think I'd give you money?","I worked hard for my money, I'm not giving you any","Earn your money the hard way"]
+            ransent = random.choice(beglist)
 
-        earnings = random.randrange(1,100)
+            bal = await update_bank(ctx,ctx.author.id,0,0)
+            total = bal[0] + bal[1]
 
-        ranlose = random.randrange(1,5)
-        if ranlose == 1:
-            embed = discord.Embed(title=random.choice(takelist),description=f"You lose `${earnings}`",color=red)
+            top_percent = 0.01 * total
+            bottom_percent = 0.005 * total
+
+            if total < 1000:
+                earnings = random.randrange(100,1000)
+            else:
+                earnings = random.randrange(int(bottom_percent),int(top_percent))
+
+            if top_percent > 15000:
+                earnings = random.randrange(7500,15000)
+
+            ranlose = random.randrange(int(bottom_percent),int(top_percent))
+            if ranlose == 1:
+                if earnings > total:
+                    earnings = random.randrange(0,(math.ceil(total/6)))
+
+                embed = discord.Embed(title=random.choice(takelist),description=f"You lose `${format (earnings, ',d')}`",color=red)
+                embed.set_footer(text=random.choice(beglist2))
+                await update_bank(ctx,ctx.author.id,-1*earnings,0)
+                await ctx.reply(embed=embed)
+                return
+
+            rannum = random.randrange(1,1000)
+            if rannum == 666:
+                embed = discord.Embed(description='You got lucky and found `$25,000`!',color=rcolor)
+                embed.set_footer(text=random.choice(beglist2))
+                await ctx.reply(embed=embed)
+                await update_bank(ctx,ctx.author.id,25000,0)
+                return
+
+            embed = discord.Embed(description=f"{ransent} `${format (earnings, ',d')}`",color=rcolor)
             embed.set_footer(text=random.choice(beglist2))
-            await update_bank(ctx,ctx.author.id,-1*earnings,0)
             await ctx.reply(embed=embed)
-            return
 
-        rannum = random.randrange(1,1000)
-        if rannum == 666:
-            embed = discord.Embed(description='You got lucky and found `$25,000`!',color=rcolor)
-            embed.set_footer(text=random.choice(beglist2))
-            await ctx.reply(embed=embed)
-            await update_bank(ctx,ctx.author.id,25000,0)
-            return
-
-        embed = discord.Embed(description=f'{ransent} `${earnings}`',color=rcolor)
-        embed.set_footer(text=random.choice(beglist2))
-        await ctx.reply(embed=embed)
-
-        await update_bank(ctx,ctx.author.id,earnings,0)
-
+            await update_bank(ctx,ctx.author.id,earnings,0)
+        except Exception:
+            print(f"```{traceback.format_exc()}```")
 
     #Coinflip Command
     @commands.command(aliases = ["coin"])
