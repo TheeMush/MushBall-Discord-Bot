@@ -5,6 +5,7 @@ from pymongo import MongoClient
 import traceback
 import datetime
 import random
+import humanize 
 
 intents = discord.Intents.default()
 intents.members = True
@@ -19,9 +20,6 @@ class afk(commands.Cog):
 
         global namelist
         namelist = [] 
-
-        
-
 
         @commands.command()
         async def afk(self,ctx,message = None):
@@ -116,28 +114,31 @@ class afk(commands.Cog):
                             dt = datetime.datetime.strptime(str(timeused), "%Y-%m-%d %H:%M:%S")
                             newdt = datetime.datetime.strftime(dt, "%b %d %y %H:%M")
 
+                            current = datetime.datetime.now()
+                            seconds = (current-dt).total_seconds()
+
+                            if seconds < 60:
+                                natty = humanize.precisedelta(seconds)
+                            else:
+                                natty = humanize.precisedelta(seconds, suppress=['seconds'], format="%0.0f")
+
                             if afkmsg == None:
                                 embed = discord.Embed(color=discord.Colour.random())
                             else:
                                 embed = discord.Embed(description=afkmsg,color=discord.Colour.random())
 
                             embed.set_author(name=f"{afkuser.name} is AFK", icon_url=afkuser.avatar_url)
-                            embed.set_footer(text=newdt)
+                            try:
+                                embed.set_footer(text=f"{newdt} | {natty.title()} Ago")
+                            except:
+                                embed.set_footer(text=newdt)
+
                             await message.reply(embed=embed)
-
-                        
-
-                        #print(f"whole command {message.author.name } {datetime.datetime.now() - begin_time}")
 
                         await self.update_list(message.guild.id)
                         
-
-
             except:
                 print(f"```{traceback.format_exc()}```")
-                
-
-        
 
         async def update_list(self,guildid):
             global namelist

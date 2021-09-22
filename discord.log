@@ -41,3 +41,13 @@
 2021-09-22 10:04:29,310:DEBUG:discord.client: Dispatching event ready
 2021-09-22 10:04:29,311:DEBUG:discord.gateway: Sending "{"op":3,"d":{"game":{"type":0,"name":"with everyones money","timestamps":{}},"afk":false,"since":0.0,"status":"online"}}" to change status
 2021-09-22 10:04:29,311:DEBUG:discord.client: Dispatching event socket_raw_send
+2021-09-22 10:05:08,421:DEBUG:discord.gateway: Keeping shard ID None websocket alive with sequence 5.
+2021-09-22 10:05:08,440:DEBUG:discord.client: Dispatching event socket_raw_receive
+2021-09-22 10:05:08,440:DEBUG:discord.gateway: For Shard ID None: WebSocket Event: {'t': None, 's': None, 'op': 11, 'd': None}
+2021-09-22 10:05:08,440:DEBUG:discord.client: Dispatching event socket_response
+2021-09-22 10:05:29,325:DEBUG:discord.gateway: Sending "{"op":3,"d":{"game":{"type":0,"name":"Join My Server: dsc.gg/mushballhell","timestamps":{}},"afk":false,"since":0.0,"status":"online"}}" to change status
+2021-09-22 10:05:29,325:DEBUG:discord.client: Dispatching event socket_raw_send
+2021-09-22 10:05:49,678:DEBUG:discord.gateway: Keeping shard ID None websocket alive with sequence 5.
+2021-09-22 10:05:49,700:DEBUG:discord.client: Dispatching event socket_raw_receive
+2021-09-22 10:05:49,700:DEBUG:discord.gateway: For Shard ID None: WebSocket Event: {'t': None, 's': None, 'op': 11, 'd': None}
+2021-09-22 10:05:49,700:DEBUG:discord.client: Dispatching event socket_response
