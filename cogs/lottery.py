@@ -18,6 +18,7 @@ class lottery(commands.Cog):
         self.client = client
 
     @commands.command(aliases=['lotto'])
+    @commands.cooldown(1, 86400, commands.BucketType.member)
     async def lottery(self,ctx):
         try:
             pool = await self.open_list(ctx)
@@ -41,6 +42,7 @@ class lottery(commands.Cog):
                 embed.add_field(name="\nYou didn't reply fast enough!",value="** **",inline=False)
                 await msg.clear_reactions()
                 await msg.edit(embed=embed)
+                self.lottery.reset_cooldown(ctx)
                 return
 
             if reaction.emoji == "\u2705":
@@ -49,6 +51,7 @@ class lottery(commands.Cog):
                     embed.set_footer(text="Go gamble more broke ass")  
                     await msg.clear_reactions()
                     await msg.edit(embed=embed)
+                    self.lottery.reset_cooldown(ctx)
                     return
 
                 embed = discord.Embed(title=f"{slots} MushBall's Lottery {slots}",description=f"**Let's see if {ctx.author.mention} Won...**", color=discord.Colour.random())
@@ -80,6 +83,8 @@ class lottery(commands.Cog):
                 embed.add_field(name="\nCancelled",value="** **",inline=False)
                 await msg.clear_reactions()
                 await msg.edit(embed=embed)
+                self.lottery.reset_cooldown(ctx)
+
 
         except:
             print(f"```{traceback.format_exc()}```")

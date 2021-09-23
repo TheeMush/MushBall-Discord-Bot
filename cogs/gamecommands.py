@@ -199,7 +199,7 @@ class gamecommands(commands.Cog):
     async def rob(self,ctx,member:discord.Member=None):
         try:
             if member == ctx.author:
-                ctx.reply("Ayo? Why are you trying to rob yourself?")
+                await ctx.reply("Ayo? Why are you trying to rob yourself?")
                 self.rob.reset_cooldown(ctx)
                 return
 

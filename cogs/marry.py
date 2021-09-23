@@ -191,7 +191,7 @@ class marry(commands.Cog):
                     await ctx.send(embed=embed)
                     return
 
-                time = await self.time(ctx,ctx.member.id)
+                time = await self.time(ctx,member.id)
                 current = datetime.datetime.now().replace(microsecond=0)
                 timepassed = (current-time)
                 embed = discord.Embed(description=f"{member.mention} is married to <@{spouse}>\n\n They've been married for `{timepassed}`\n\nThey got married on:\n`{time}`", color=discord.Colour.random())

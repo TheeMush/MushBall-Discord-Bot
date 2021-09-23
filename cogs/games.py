@@ -20,7 +20,7 @@ class games(commands.Cog):
 
     #Beg command
     @commands.command()
-    @commands.cooldown(1, 20, commands.BucketType.member)
+    @commands.cooldown(1, 60, commands.BucketType.member)
     async def beg(self,ctx):
         try:
             beglist = ["I'm feeling generous, here's","You're begging? How pitiful, here's","I like you, take","And people say I'm not nice, this is for you"]
@@ -211,7 +211,7 @@ class games(commands.Cog):
 
     #Highlow Command
     @commands.command(aliases = ["hl"])
-    #@commands.cooldown(1, 10, commands.BucketType.member)
+    @commands.cooldown(1, 10, commands.BucketType.member)
     async def highlow(self,ctx,amount = None,guess = None,num = None):
         embed = discord.Embed(description="• **.highlow** `<bet amount>` `<high/low>` `<number>`\n• Aliases = `.hl`\n\n**Low** = **1-16**\n**High** = **17-32**\n\n", color=red)
         embed.set_author(name = "HighLow Usage:",icon_url=ctx.author.avatar_url)
@@ -244,8 +244,6 @@ class games(commands.Cog):
             self.highlow.reset_cooldown(ctx)
             return
 
-        await update_bank(ctx,ctx.author.id,-1*amount,0)
-
         if num == None:
             intnum = -1
             num = "None"
@@ -273,12 +271,27 @@ class games(commands.Cog):
                 choices = ["HIGH","HIGH", "HIGH","LOW","HIGH"]
                 outcome = random.choice(choices)
 
-        
+        if intnum == -1:
+            pass
+        else:
+            if guess.lower() == 'high' and intnum <= 16:
+                await ctx.reply("You can't guess high and then a low number")
+                return
+            elif guess.lower() == 'low' and intnum > 16:
+                await ctx.reply("You can't guess low and then a high number")
+                return
+
+        await update_bank(ctx,ctx.author.id,-1*amount,0)
+
         embed = discord.Embed(title=":arrow_up: High Low :arrow_down:",color=rcolor)
         embed.add_field(name="Your guess:",value=f"**{guess.upper()}**\n**{num}\n**")
         embed.add_field(name="Outcome:",value=f"**{outcome}**\n**{rannum}\n**")
         embed.set_author(name="MushBall's Casino", icon_url=ctx.author.avatar_url)
 
+        if outcome == 'HIGH':
+            rannum = random.randrange(17,32)
+        elif outcome == 'LOW':
+            rannum = random.randrange(1,16)
         
         if intnum == rannum:
             embed.add_field(name=f"You guessed the number correctly! You win :dollar: `${format (10*amount, ',d')}` :dollar:",value="** **",inline=False)
