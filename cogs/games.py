@@ -39,10 +39,16 @@ class games(commands.Cog):
             else:
                 earnings = random.randrange(int(bottom_percent),int(top_percent))
 
-            if top_percent > 15000:
-                earnings = random.randrange(7500,15000)
+            if top_percent > 7500:
+                earnings = random.randrange(3750,7500)
 
-            ranlose = random.randrange(int(bottom_percent),int(top_percent))
+            if int(top_percent) < 1:
+                ranlose = random.randrange(0,(math.ceil(total/10)))
+            elif int(bottom_percent) < 1:
+                ranlose = random.randrange(0,(math.ceil(total/10)))
+            else:
+                ranlose = random.randrange(int(bottom_percent),int(top_percent))
+            
             if ranlose == 1:
                 if earnings > total:
                     earnings = random.randrange(0,(math.ceil(total/6)))
@@ -504,6 +510,7 @@ class games(commands.Cog):
                 earnings = math.ceil(choice*amount)
                 embed.add_field(name = f"**You Won** ${format (earnings, ',d')}",value='** **',inline=False)
                 await message.edit(embed=embed)
+                await update_bank(ctx,ctx.author.id,-1*amount,0)
                 await update_bank(ctx,ctx.author.id,earnings,0)
 
 
