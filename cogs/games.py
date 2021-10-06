@@ -18,9 +18,16 @@ class games(commands.Cog):
     def __init__(self, client):
         self.client = client
 
+    async def cog_check(self, ctx):
+        if ctx.channel.id == 766731745542275113:
+            await ctx.send("Don't gamble in gen idiot")
+            return
+        else:
+            return True
+
     #Beg command
     @commands.command()
-    @commands.cooldown(1, 60, commands.BucketType.member)
+    @commands.cooldown(1, 1800, commands.BucketType.member)
     async def beg(self,ctx):
         try:
             beglist = ["I'm feeling generous, here's","You're begging? How pitiful, here's","I like you, take","And people say I'm not nice, this is for you"]
@@ -109,7 +116,7 @@ class games(commands.Cog):
         elif choice.lower() == 'tail':
             choice = 'tails'
             
-        if luck < 80:
+        if luck < 50:
             if choice.lower() == 'heads':
                 choices = ["Heads", "Tails","Tails"]
                 rancoin = random.choice(choices)
@@ -124,7 +131,6 @@ class games(commands.Cog):
         elif luck >= 50:
                 choices = ["Heads", "Tails"]
                 rancoin = random.choice(choices)
-            
 
         if choice.lower() == rancoin.lower():
             embed=discord.Embed(title=f"{coin} The coin landed on {rancoin} {coin}", description=f"Congrats {ctx.author.mention}, you won **`${format (2*amount, ',d')}`**!", color=gold)
@@ -255,22 +261,22 @@ class games(commands.Cog):
         else:
             outcome = "LOW"
 
-        if luck < 40:
+        if luck < 60:
             if guess.lower() == 'high':
-                choices = ["HIGH","LOW", "LOW", "LOW","LOW"]
+                choices = ["HIGH","LOW", "LOW"]
                 outcome = random.choice(choices)
             elif guess.lower() == 'low':
-                choices = ["HIGH","HIGH", "HIGH","HIGH","LOW"]
-                outcome = random.choice(choices)
-                
-        if luck < 80:
-            if guess.lower() == 'high':
-                choices = ["HIGH","LOW", "LOW","LOW","LOW"]
-                outcome = random.choice(choices)
-            elif guess.lower() == 'low':
-                choices = ["HIGH","HIGH", "HIGH","LOW","HIGH"]
+                choices = ["HIGH","HIGH","LOW"]
                 outcome = random.choice(choices)
 
+        elif luck < 40:
+            if guess.lower() == 'high':
+                choices = ["HIGH","LOW", "LOW","LOW"]
+                outcome = random.choice(choices)
+            elif guess.lower() == 'low':
+                choices = ["HIGH","HIGH", "HIGH","LOW"]
+                outcome = random.choice(choices)
+                
         if intnum == -1:
             pass
         else:
@@ -283,16 +289,16 @@ class games(commands.Cog):
 
         await update_bank(ctx,ctx.author.id,-1*amount,0)
 
+        if outcome == 'HIGH':
+            rannum = random.randrange(17,32)
+        elif outcome == 'LOW':
+            rannum = random.randrange(1,16)
+
         embed = discord.Embed(title=":arrow_up: High Low :arrow_down:",color=rcolor)
         embed.add_field(name="Your guess:",value=f"**{guess.upper()}**\n**{num}\n**")
         embed.add_field(name="Outcome:",value=f"**{outcome}**\n**{rannum}\n**")
         embed.set_author(name="MushBall's Casino", icon_url=ctx.author.avatar_url)
 
-        if outcome == 'HIGH':
-            rannum = random.randrange(17,32)
-        elif outcome == 'LOW':
-            rannum = random.randrange(1,16)
-        
         if intnum == rannum:
             embed.add_field(name=f"You guessed the number correctly! You win :dollar: `${format (10*amount, ',d')}` :dollar:",value="** **",inline=False)
             await update_bank(ctx,ctx.author.id,10*amount,0)
@@ -418,6 +424,8 @@ class games(commands.Cog):
 
     @commands.command()
     async def crash(self,ctx,amount = None):
+        await ctx.send("Crash is under construction, play sumn else <a:hyperkek:834534161313955900>")
+        return
         if amount == None:
             embed = discord.Embed(description="• **.crash** <`AMOUNT`>", color=red)
             embed.set_author(name = "Crash Usage:",icon_url=ctx.author.avatar_url)

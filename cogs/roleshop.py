@@ -15,6 +15,13 @@ class roleshop(commands.Cog):
     def __init__(self, client):
         self.client = client
 
+    async def cog_check(self, ctx):
+        if ctx.channel.id == 766731745542275113:
+            await ctx.send("Tf you doing using this in the wrong channel")
+            return
+        else:
+            return True
+
     #Role Help Embed for Admins
     @commands.command(aliases=['roles'])
     @commands.check_any(commands.is_owner(),commands.has_permissions(administrator=True))
@@ -41,7 +48,24 @@ class roleshop(commands.Cog):
             return
 
         guild = ctx.guild
-        role = await guild.create_role(name=content,mentionable=False)  
+
+        def check(message):
+                return message.author == ctx.author 
+
+        await ctx.reply('Do you want this role to be mentionable? Yes or No')
+
+        try:
+            message = await self.client.wait_for('message', check=check, timeout= 10)
+        except asyncio.TimeoutError:
+            await ctx.reply("You didn't make a decision fast enough")
+
+        choice = message.content
+
+        if choice.lower() == 'yes':
+            role = await guild.create_role(name=content,mentionable=True)  
+        else:
+            role = await guild.create_role(name=content,mentionable=False)  
+
         roleid = role.id
         embed = discord.Embed(title='**Created A New Role:**', description=f"<@&{roleid}>",color=0xFFD700)
         embed.set_author(name="Roles", icon_url=ctx.author.avatar_url)

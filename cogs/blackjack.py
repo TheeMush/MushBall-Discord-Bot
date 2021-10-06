@@ -13,6 +13,13 @@ class blackjack(commands.Cog):
     def __init__(self, client):
         self.client = client
 
+    async def cog_check(self, ctx):
+        if ctx.channel.id == 766731745542275113:
+            await ctx.send("Don't gamble in gen idiot")
+            return
+        else:
+            return True
+
     @commands.command(aliases = ["bj"])
     async def blackjack(self,ctx, amount = None):
         if amount == None:

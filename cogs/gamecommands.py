@@ -19,7 +19,12 @@ class gamecommands(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    
+    async def cog_check(self, ctx):
+        if ctx.channel.id == 766731745542275113:
+            await ctx.send("Wrong channel stupid")
+            return
+        else:
+            return True
 
     @commands.command(aliases=['bal'])
     async def balance(self,ctx,member:discord.Member=None):

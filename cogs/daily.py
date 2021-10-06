@@ -14,6 +14,13 @@ class daily(commands.Cog):
     def __init__(self, client):
         self.client = client
 
+    async def cog_check(self, ctx):
+        if ctx.channel.id == 766731745542275113:
+            await ctx.send("Use your daily in the MushBall channel dumbass")
+            return
+        else:
+            return True
+
     @commands.command()
     async def daily(self,ctx):
         try:
