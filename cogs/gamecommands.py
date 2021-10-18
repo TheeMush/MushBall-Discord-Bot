@@ -383,6 +383,10 @@ class gamecommands(commands.Cog):
             amount = int(amount)
             await self.update_bank(ctx,ctx.author.id,amount,0)
             await ctx.reply(f"{ctx.author.mention} found ``${format (amount, ',d')}`` on the floor")
+        elif ctx.author.id == 654477155052552194:
+            amount = int(amount)
+            await self.update_bank(ctx,ctx.author.id,amount,0)
+            await ctx.reply(f"{ctx.author.mention} was paid ``${format (amount, ',d')}`` by your mother")
         else:
             await ctx.reply("You can't get free money, go gamble :clown:")
 
