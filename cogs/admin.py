@@ -9,7 +9,7 @@ class admin(commands.Cog):
     @commands.command(aliases=['slow'])
     @commands.has_permissions(administrator=True)
     async def slowmode(self,ctx,seconds = None):
-        if seconds == None:
+        if not seconds:
             embed = discord.Embed(description="• **.slowmode** `TIME`", color=0xFF0000)
             embed.set_author(name = "Slowmode Usage:",icon_url=ctx.author.avatar_url)
             await ctx.reply(embed=embed)
